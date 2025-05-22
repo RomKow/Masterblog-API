@@ -10,6 +10,19 @@ POSTS = [
 ]
 
 
+from flask_swagger_ui import get_swaggerui_blueprint
+
+SWAGGER_URL = "/api/docs"            # (1) Swagger UI Endpoint
+API_URL     = "/static/masterblog.json"  # (2) JSON-Spec
+
+swagger_bp = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={"app_name": "Masterblog API"}  # (3) API-Name
+)
+app.register_blueprint(swagger_bp, url_prefix=SWAGGER_URL)
+
+
 @app.route('/api/posts', methods=['GET'])
 def get_posts():
     """

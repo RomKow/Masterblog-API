@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Masterblog API",
+    "version": "1.0.0",
+    "description": "CRUD-API für Blog-Posts"
+  },
+  "servers": [
+    { "url": "http://localhost:5002", "description": "Lokaler Server" }
+  ],
+  "paths": {
+    "/api/posts": {
+      "get": {
+        "summary": "Liste aller Posts",
+        "responses": {
+          "200": {
+            "description": "Erfolgreiche Antwort",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Post" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Neuen Post anlegen",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/NewPost" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Post erstellt",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Post" }
+              }
+            }
+          },
+          "400": { "description": "Fehlende Felder" }
+        }
+      }
+    },
+    "/api/posts/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "integer" }
+        }
+      ],
+      "put": {
+        "summary": "Bestehenden Post updaten",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdatePost" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Post aktualisiert" },
+          "404": { "description": "Post nicht gefunden" }
+        }
+      },
+      "delete": {
+        "summary": "Post löschen",
+        "responses": {
+          "200": { "description": "Post gelöscht" },
+          "404": { "description": "Post nicht gefunden" }
+        }
+      }
+    },
+    "/api/posts/search": {
+      "get": {
+        "summary": "Posts suchen",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ergebnisliste",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Post" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id":    { "type": "integer" },
+          "title": { "type": "string"  },
+          "content": { "type": "string" }
+        }
+      },
+      "NewPost": {
+        "type": "object",
+        "required": ["title","content"],
+        "properties": {
+          "title":   { "type": "string" },
+          "content": { "type": "string" }
+        }
+      },
+      "UpdatePost": {
+        "type": "object",
+        "properties": {
+          "title":   { "type": "string" },
+          "content": { "type": "string" }
+        }
+      }
+    }
+  }
+}
