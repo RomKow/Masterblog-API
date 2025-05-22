@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Beispiel Post 1",
+    "content": "Dies ist der Inhalt von Post 1. Hier steht ein bisschen Text als Beispiel."
+  },
+  {
+    "id": 4,
+    "title": "Beispiel Post 4",
+    "content": "Dies ist der Inhalt von Post 4. Hier steht ein bisschen Text als Beispiel."
+  },
+  {
+    "id": 5,
+    "title": "Beispiel Post 5",
+    "content": "Dies ist der Inhalt von Post 5. Hier steht ein bisschen Text als Beispiel."
+  },
+  {
+    "id": 11,
+    "title": "Ein neuer Post",
+    "content": "Montag ist Schontag!"
+  }
+]
